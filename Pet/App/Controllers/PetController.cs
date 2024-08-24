@@ -18,7 +18,7 @@ namespace Pet.App.Controllers
             }
 
             [HttpGet("{id}")]
-            public async Task<IActionResult> Get(int id)
+            public async Task<IActionResult> GetByIdAsync(int id)
             {
                 var matriz = await _repositoryInterface.GetByIdAsync(id);
                 if (matriz != null)
