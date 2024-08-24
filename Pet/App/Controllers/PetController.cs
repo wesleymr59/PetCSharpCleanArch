@@ -21,7 +21,6 @@ namespace Pet.App.Controllers
             public async Task<IActionResult> Get(int id)
             {
                 var matriz = await _repositoryInterface.GetByIdAsync(id);
-                Console.WriteLine("dasdasdasdas.kdghsaoieugwlidhasçjdh");
                 if (matriz != null)
                 {
                   return Ok(matriz);
