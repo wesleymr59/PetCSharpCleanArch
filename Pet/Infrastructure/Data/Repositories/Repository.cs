@@ -2,6 +2,8 @@
 using Pet.App.Entities.PgSQL;
 using Pet.App.Gateways;
 using Pet.Infrastructure.Data.Config;
+using System.Runtime.ConstrainedExecution;
+using Pet.App.Entities.Request;
 
 namespace Pet.Infrastructure.Data.Repositories
 {
@@ -24,8 +26,22 @@ namespace Pet.Infrastructure.Data.Repositories
             }
             return matriz;
         }
-            
+
+        public async Task<ActionResult<Matriz>> CreateMatriz(MatrizDTO matrizDto)
+        {
+            var matriz = new Matriz
+            {
+                Nome = matrizDto.Nome,
+                Cor = matrizDto.Cor,
+                DataNascimento = matrizDto.DataNascimento,
+                Ativo = true
+            };
+            await _context.AddAsync(matriz);
+            await _context.SaveChangesAsync();
+            return matriz;
         }
+
+    }
     }
     
     

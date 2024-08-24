@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Pet.App.Gateways;
+using Pet.App.UseCases;
 using Pet.Infrastructure.Data.Config;
 using Pet.Infrastructure.Data.Repositories;
 using System.Configuration;
@@ -17,7 +18,12 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+// Registro do repositório
 builder.Services.AddScoped<IRepositoryInterface, Repository>();
+
+// Registro da UseCase
+builder.Services.AddScoped<MatrizUseCase>();
+
 
 builder.Services.AddControllers();
 var app = builder.Build();

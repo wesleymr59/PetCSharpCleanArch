@@ -1,4 +1,6 @@
-﻿using Pet.App.Entities.PgSQL;
+﻿using Microsoft.AspNetCore.Mvc;
+using Pet.App.Entities.PgSQL;
+using Pet.App.Entities.Request;
 
 namespace Pet.App.Gateways
 {
@@ -6,5 +8,6 @@ namespace Pet.App.Gateways
     {
 
         Task<Matriz> GetByIdAsync(int id);
+        Task<ActionResult<Matriz>> CreateMatriz(MatrizDTO matriz);
     }
 }

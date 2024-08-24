@@ -7,7 +7,7 @@ namespace Pet.App.Entities.PgSQL
     public class Matriz
     {
         [Key]
-        public int Id { get; init; }
+        public int Id { get; set; }
 
         [Required]
         [MaxLength(100)]
@@ -21,6 +21,9 @@ namespace Pet.App.Entities.PgSQL
         public DateTime DataNascimento { get; set; } //private só altera dentro da classe
 
         public bool Ativo { get; set; } //private só altera dentro da classe
+
+
+        public Matriz() { } // Construtor padrão
 
         public Matriz(string nome, string cor, DateTime dataNascimento)
         {
