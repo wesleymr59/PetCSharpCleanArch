@@ -6,6 +6,8 @@ namespace Pet.Infrastructure.Data.Config
     public class AppDbContext : DbContext
     {
         public DbSet<Matriz> Matriz { get; set; }
+        public DbSet<Ninhada> Ninhada { get; set; }
+        public DbSet<Usuario> Usuario { get; set; }
 
         public AppDbContext(DbContextOptions<AppDbContext> options)
             : base(options)

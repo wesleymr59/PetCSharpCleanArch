@@ -19,10 +19,14 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Registro do repositório
-builder.Services.AddScoped<IRepositoryInterface, Repository>();
+builder.Services.AddScoped<IRepositoryInterface, MatrizRepository>();
+builder.Services.AddScoped<INinhadaInterface, NinhadaRepository>();
+builder.Services.AddScoped<IUsuarioInterface, UsuarioRepository>();
 
 // Registro da UseCase
 builder.Services.AddScoped<MatrizUseCase>();
+builder.Services.AddScoped<NinhadaUseCase>();
+builder.Services.AddScoped<UsuarioUseCase>();
 
 
 builder.Services.AddControllers();
@@ -34,8 +38,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
-
 
 
 

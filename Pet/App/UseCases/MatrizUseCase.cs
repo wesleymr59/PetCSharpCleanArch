@@ -3,6 +3,7 @@ using Pet.App.Entities.PgSQL;
 using Pet.App.Gateways;
 using Pet.App.Entities.Request;
 
+
 namespace Pet.App.UseCases
 {
     public class MatrizUseCase
@@ -15,14 +16,25 @@ namespace Pet.App.UseCases
 
         public async Task<Matriz?> GetByIdAsync(int id)
         {
-            Console.WriteLine("hdjsauhdiuashduiawshuiodhasuidhaskjhdlj");
+
             return await _repositoryInterface.GetByIdAsync(id);
         }
 
         public async Task<ActionResult<Matriz>> CreateMatriz(MatrizDTO matriz)
         {
-            Console.WriteLine("hdjsauhdiuashduiawshuiodhasuidhaskjhdlj");
+
             return await _repositoryInterface.CreateMatriz(matriz);
+        }
+        public async Task<ActionResult<Matriz>> UpdateMatriz(MatrizDTO matriz, int id)
+        {
+
+            return await _repositoryInterface.UpdateMatriz(matriz, id);
+        }
+
+        public async Task<ActionResult<Matriz>> DeleteMatriz(int id)
+        {
+
+            return await _repositoryInterface.DeleteMatriz(id);
         }
 
     }

@@ -9,5 +9,7 @@ namespace Pet.App.Gateways
 
         Task<Matriz> GetByIdAsync(int id);
         Task<ActionResult<Matriz>> CreateMatriz(MatrizDTO matriz);
+        Task<ActionResult<Matriz>> UpdateMatriz(MatrizDTO matriz, int id);
+        Task<ActionResult<Matriz>> DeleteMatriz(int id);
     }
 }

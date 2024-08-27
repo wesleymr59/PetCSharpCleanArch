@@ -12,7 +12,7 @@ using Pet.Infrastructure.Data.Config;
 namespace Pet.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240824125745_InitialCreate")]
+    [Migration("20240825134328_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -25,7 +25,7 @@ namespace Pet.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("Pet.App.Entities.PgSQL.EntitiesMatriz", b =>
+            modelBuilder.Entity("Pet.App.Entities.PgSQL.Matriz", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -52,6 +52,55 @@ namespace Pet.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Matriz");
+                });
+
+            modelBuilder.Entity("Pet.App.Entities.PgSQL.Ninhada", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("Ativo")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime>("DataNascimento")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("MatrizId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<int>("Quantidade")
+                        .HasMaxLength(100)
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MatrizId");
+
+                    b.ToTable("Ninhada");
+                });
+
+            modelBuilder.Entity("Pet.App.Entities.PgSQL.Ninhada", b =>
+                {
+                    b.HasOne("Pet.App.Entities.PgSQL.Matriz", "Matriz")
+                        .WithMany("Ninhadas")
+                        .HasForeignKey("MatrizId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Matriz");
+                });
+
+            modelBuilder.Entity("Pet.App.Entities.PgSQL.Matriz", b =>
+                {
+                    b.Navigation("Ninhadas");
                 });
 #pragma warning restore 612, 618
         }
