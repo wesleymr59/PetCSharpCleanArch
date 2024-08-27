@@ -10,14 +10,12 @@ namespace Pet.App.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class PetController : ControllerBase
+    public class NinhadaController : ControllerBase
     {
-        private readonly MatrizUseCase _matrizUseCase;
         private readonly NinhadaUseCase _ninhadaUseCase;
 
-        public PetController(MatrizUseCase matrizUseCase, NinhadaUseCase ninhadaUseCase)
+        public NinhadaController( NinhadaUseCase ninhadaUseCase)
         {
-            _matrizUseCase = matrizUseCase;
             _ninhadaUseCase = ninhadaUseCase;
         }
 
@@ -26,12 +24,33 @@ namespace Pet.App.Controllers
         {
             try
             {
-                var matriz = await _matrizUseCase.GetByIdAsync(id);
-                if (matriz == null)
+                var ninhada = await _ninhadaUseCase.GetByIdAsync(id);
+                if (ninhada == null)
                 {
                     return NotFound();
                 }
-                return Ok(matriz);
+                return Ok(ninhada);
+
+            }
+            catch (Exception ex)
+            {
+                // Retorna 500 se ocorrer um erro inesperado
+                return StatusCode(StatusCodes.Status500InternalServerError, new { Message = $"Erro ao Buscar a matriz: {ex.Message}" });
+            }
+
+        }
+
+        [HttpGet("/matriz/{id}")]
+        public async Task<IActionResult> GetByMatrizIdAsync(int id)
+        {
+            try
+            {
+                var ninhada = await _ninhadaUseCase.GetByMatrizIdAsync(id);
+                if (ninhada == null)
+                {
+                    return NotFound();
+                }
+                return Ok(ninhada);
 
             }
             catch (Exception ex)
@@ -43,12 +62,12 @@ namespace Pet.App.Controllers
         }
 
         [HttpPost("")]
-        public async Task<IActionResult> PostMatriz([FromBody] MatrizDTO matriz)
+        public async Task<IActionResult> PostMatriz([FromBody] NinhadaDTO ninhada)
         {
             try
             {
-                await _matrizUseCase.CreateMatriz(matriz);
-                if (matriz != null)
+                await _ninhadaUseCase.CreateNinhada(ninhada);
+                if (ninhada != null)
                 {
                     return Created();
                 }
@@ -65,11 +84,11 @@ namespace Pet.App.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutMatriz([FromBody] MatrizDTO matriz, int id)
+        public async Task<IActionResult> PutMatriz([FromBody] NinhadaDTO ninhada, int id)
         {
             try
             {
-                var matrizResponse = await _matrizUseCase.UpdateMatriz(matriz, id);
+                var matrizResponse = await _ninhadaUseCase.UpdateNinhada(ninhada, id);
                 Console.WriteLine(matrizResponse);
                 if (matrizResponse == null)
                 {
@@ -90,7 +109,7 @@ namespace Pet.App.Controllers
         {
             try
             {
-                var matrizResponse = await _matrizUseCase.DeleteMatriz(id);
+                var matrizResponse = await _ninhadaUseCase.DeleteNinhada(id);
                 Console.WriteLine(matrizResponse);
                 if (matrizResponse == null)
                 {

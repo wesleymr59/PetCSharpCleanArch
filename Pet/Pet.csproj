@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <Folder Include="Infrastructure\External\" />
+    <Folder Include="Infrastructure\Middleware\" />
   </ItemGroup>
 
 </Project>

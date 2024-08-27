@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Pet.App.Gateways;
+using Pet.App.UseCases;
 using Pet.Infrastructure.Data.Config;
 using Pet.Infrastructure.Data.Repositories;
 using System.Configuration;
@@ -17,7 +18,16 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddScoped<IRepositoryInterface, Repository>();
+// Registro do repositório
+builder.Services.AddScoped<IRepositoryInterface, MatrizRepository>();
+builder.Services.AddScoped<INinhadaInterface, NinhadaRepository>();
+builder.Services.AddScoped<IUsuarioInterface, UsuarioRepository>();
+
+// Registro da UseCase
+builder.Services.AddScoped<MatrizUseCase>();
+builder.Services.AddScoped<NinhadaUseCase>();
+builder.Services.AddScoped<UsuarioUseCase>();
+
 
 builder.Services.AddControllers();
 var app = builder.Build();
@@ -28,8 +38,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
-
 
 
 
